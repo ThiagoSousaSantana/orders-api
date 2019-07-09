@@ -19,6 +19,17 @@ public class Address {
     @JsonBackReference
     private Customer customer;
 
+    public Address(String number, String street, String city, String postcode, String country) {
+        this.number = number;
+        this.street = street;
+        this.city = city;
+        this.postcode = postcode;
+        this.country = country;
+    }
+
+    public Address() {
+    }
+
     public Long getId() {
         return id;
     }

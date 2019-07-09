@@ -19,6 +19,15 @@ public class Customer {
     @OneToMany(mappedBy = "customer")
     private List<Address> address = new ArrayList<>();
 
+    public Customer(String name, String email, String phone) {
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+    }
+
+    public Customer() {
+    }
+
     public Long getId() {
         return id;
     }
