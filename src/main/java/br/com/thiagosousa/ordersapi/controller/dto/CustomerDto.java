@@ -4,14 +4,20 @@ import br.com.thiagosousa.ordersapi.model.Customer;
 
 public class CustomerDto {
 
+    private Long id;
     private String name;
     private String email;
     private String phone;
 
     public CustomerDto(Customer customer) {
+        this.id = customer.getId();
         this.name = customer.getName();
         this.email = customer.getEmail();
         this.phone = customer.getPhone();
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getName() {
