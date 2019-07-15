@@ -10,8 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.stream.Collectors;
-
 @Service
 public class CustomerService {
 
@@ -41,10 +39,30 @@ public class CustomerService {
 
     public Customer insert(CustomerForm form){
         var customer = repository.save(form.toCustomer());
-        var address = form.getAddress().stream().map(addressForm ->
-                addressForm.toAddress(customer)).collect(Collectors.toList());
-        addressService.insertAll(address);
+        var addresses = form.getAddress();
+        addresses.forEach(address -> address.setId(null));
+        addressService.insertAll(addresses);
         return customer;
+    }
+
+    public Customer update(CustomerForm form, Long id){
+        var customer = findBy(id);
+        updateFields(form, customer);
+
+        addressService.insertAll(customer.getAddress());
+        return repository.save(customer);
+    }
+
+    private void updateFields(CustomerForm form, Customer customer) {
+        customer.setName(form.getName());
+        customer.setEmail(form.getEmail());
+        customer.setPhone(form.getPhone());
+
+        var newAddresses = form.getAddress();
+        if (!newAddresses.equals(customer.getAddress())) {
+            newAddresses.forEach( address -> address.setCustomer(customer));
+            customer.setAddress(newAddresses);
+        }
     }
 
 }

@@ -3,6 +3,7 @@ package br.com.thiagosousa.ordersapi.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 public class Address {
@@ -84,5 +85,23 @@ public class Address {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Address address = (Address) o;
+        return Objects.equals(number, address.number) &&
+                Objects.equals(street, address.street) &&
+                Objects.equals(city, address.city) &&
+                Objects.equals(postcode, address.postcode) &&
+                Objects.equals(country, address.country) &&
+                Objects.equals(customer, address.customer);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(number, street, city, postcode, country, customer);
     }
 }

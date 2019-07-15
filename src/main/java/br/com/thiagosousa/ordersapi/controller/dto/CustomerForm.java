@@ -1,23 +1,20 @@
 package br.com.thiagosousa.ordersapi.controller.dto;
 
 import br.com.thiagosousa.ordersapi.model.Customer;
+import br.com.thiagosousa.ordersapi.model.Address;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class CustomerForm {
 
     private String name;
     private String email;
     private String phone;
-    private List<AddressForm> address = new ArrayList<>();
+    private List<Address> address = new ArrayList<>();
 
     public Customer toCustomer(){
         var customer = new Customer(this.name, this.email, this.phone);
-        var address = this.address.stream().map(addressForm ->
-                addressForm.toAddress(customer)).collect(Collectors.toList());
-
         customer.setAddress(address);
         return customer;
     }
@@ -46,11 +43,11 @@ public class CustomerForm {
         this.phone = phone;
     }
 
-    public List<AddressForm> getAddress() {
+    public List<Address> getAddress() {
         return address;
     }
 
-    public void setAddress(List<AddressForm> address) {
+    public void setAddress(List<Address> address) {
         this.address = address;
     }
 }

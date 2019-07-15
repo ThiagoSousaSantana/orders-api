@@ -17,10 +17,6 @@ public class AddressService {
         this.repository = repository;
     }
 
-    public Address insert(Address address){
-        return repository.save(address);
-    }
-
     public void insertAll(List<Address> addresses){
         repository.saveAll(addresses);
     }
