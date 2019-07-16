@@ -13,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/customers")
 @Api(tags = { "customers" })
@@ -27,7 +29,7 @@ public class CustomerController {
 
     @PostMapping
     @ApiOperation(value = "Insert a new customer")
-    public ResponseEntity<Customer> insert(@RequestBody CustomerForm form){
+    public ResponseEntity<Customer> insert(@RequestBody @Valid CustomerForm form){
         var customer = service.insert(form);
 
         var uri = ServletUriComponentsBuilder
@@ -62,7 +64,7 @@ public class CustomerController {
 
     @PutMapping("/id")
     @ApiOperation(value = "Update an existing customer")
-    public ResponseEntity<Customer> update(@RequestBody CustomerForm form, @RequestParam Long id){
+    public ResponseEntity<Customer> update(@RequestBody @Valid CustomerForm form, @RequestParam Long id){
         var customer = service.update(form, id);
         return ResponseEntity.ok(customer);
     }

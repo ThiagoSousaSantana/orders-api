@@ -6,5 +6,5 @@ INSERT INTO CUSTOMER(NAME, EMAIL, PHONE) VALUES('Frodo', 'frodo@email.com', '+55
 INSERT INTO CUSTOMER(NAME, EMAIL, PHONE) VALUES('Bilbo', 'bilbo@email.com', '+559999999');
 
 
-INSERT INTO ADDRESS(NUMBER, STREET, CITY, CUSTOMER_ID)
-    VALUES('111', 'Wall Street', 'Condado', 1);
+INSERT INTO ADDRESS(NUMBER, STREET, CITY, POSTCODE, COUNTRY, CUSTOMER_ID)
+    VALUES('Bag End', 'Bag End way', 'Hobbiton', '00000-000', 'Middle earth', 6);

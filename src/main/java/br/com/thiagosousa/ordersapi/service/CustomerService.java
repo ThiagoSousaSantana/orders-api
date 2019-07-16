@@ -38,10 +38,15 @@ public class CustomerService {
     }
 
     public Customer insert(CustomerForm form){
+        if (repository.findByEmail(form.getEmail()).isPresent())
+            throw new IllegalArgumentException("Email already exists");
+
         var customer = repository.save(form.toCustomer());
+
         var addresses = form.getAddress();
         addresses.forEach(address -> address.setId(null));
         addressService.insertAll(addresses);
+
         return customer;
     }
 

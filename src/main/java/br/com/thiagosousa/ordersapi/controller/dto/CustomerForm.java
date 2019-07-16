@@ -3,14 +3,22 @@ package br.com.thiagosousa.ordersapi.controller.dto;
 import br.com.thiagosousa.ordersapi.model.Customer;
 import br.com.thiagosousa.ordersapi.model.Address;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerForm {
 
+    @NotBlank
     private String name;
+
+    @Email
+    @NotBlank
     private String email;
+
     private String phone;
+
     private List<Address> address = new ArrayList<>();
 
     public Customer toCustomer(){
