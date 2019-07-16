@@ -6,6 +6,8 @@ import br.com.thiagosousa.ordersapi.model.Customer;
 import br.com.thiagosousa.ordersapi.service.CustomerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,6 +31,7 @@ public class CustomerController {
 
     @PostMapping
     @ApiOperation(value = "Insert a new customer")
+    @ApiResponses(value = {@ApiResponse(code = 400, message = "Bad request")})
     public ResponseEntity<Customer> insert(@RequestBody @Valid CustomerForm form){
         var customer = service.insert(form);
 
@@ -64,6 +67,7 @@ public class CustomerController {
 
     @PutMapping("/id")
     @ApiOperation(value = "Update an existing customer")
+    @ApiResponses(value = {@ApiResponse(code = 400, message = "Bad request")})
     public ResponseEntity<Customer> update(@RequestBody @Valid CustomerForm form, @RequestParam Long id){
         var customer = service.update(form, id);
         return ResponseEntity.ok(customer);
