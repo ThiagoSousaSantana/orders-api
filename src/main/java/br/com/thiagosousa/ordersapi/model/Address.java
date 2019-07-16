@@ -3,6 +3,7 @@ package br.com.thiagosousa.ordersapi.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
 @Entity
@@ -11,9 +12,13 @@ public class Address {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String number;
+    @NotBlank
     private String street;
+    @NotBlank
     private String city;
+    @NotBlank
     private String postcode;
+    @NotBlank
     private String country;
 
     @ManyToOne
