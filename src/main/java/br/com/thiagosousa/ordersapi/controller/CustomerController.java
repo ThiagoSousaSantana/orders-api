@@ -44,7 +44,13 @@ public class CustomerController {
 
     @GetMapping
     @ApiOperation(value = "List all customers")
-    public ResponseEntity<Page<CustomerDto>> listAll(Pageable pageable){
+    public ResponseEntity<Page<CustomerDto>> listAll(Pageable pageable, String name, String email){
+        if (name != null)
+            return ResponseEntity.ok(service.findByName(pageable, name));
+
+        if (email != null)
+            return ResponseEntity.ok(service.findByEmail(pageable, email));
+
         return ResponseEntity.ok(service.findAll(pageable));
     }
 

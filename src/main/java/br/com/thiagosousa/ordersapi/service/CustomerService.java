@@ -70,4 +70,13 @@ public class CustomerService {
         }
     }
 
+    public Page<CustomerDto> findByName(Pageable pageable, String name) {
+        var customers = repository.findAllByNameContains(pageable, name);
+        return customers.map(CustomerDto::new);
+    }
+
+    public Page<CustomerDto> findByEmail(Pageable pageable, String email) {
+        var customers = repository.findAllByEmailContains(pageable, email);
+        return customers.map(CustomerDto::new);
+    }
 }
