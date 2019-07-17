@@ -1,5 +1,6 @@
 package br.com.thiagosousa.ordersapi.model;
 
+import br.com.thiagosousa.ordersapi.model.audit.DateAudit;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -7,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Customer {
+public class Customer extends DateAudit {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
