@@ -4,7 +4,7 @@ import br.com.thiagosousa.ordersapi.controller.dto.CustomerDto;
 import br.com.thiagosousa.ordersapi.controller.dto.CustomerForm;
 import br.com.thiagosousa.ordersapi.model.Customer;
 import br.com.thiagosousa.ordersapi.repository.CustomerRepository;
-import br.com.thiagosousa.ordersapi.service.exception.ObjectNotFoundException;
+import br.com.thiagosousa.ordersapi.service.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,7 +28,7 @@ public class CustomerService {
 
     public Customer findBy(Long id){
         var customer = repository.findById(id);
-        return customer.orElseThrow(() -> new ObjectNotFoundException("Customer not found with id: " + id));
+        return customer.orElseThrow(() -> new ResourceNotFoundException("Customer", "ID", id));
     }
 
     public void delete(Long id){
