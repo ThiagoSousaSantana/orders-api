@@ -26,14 +26,19 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 )
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    CustomUserDetailService userDetailService;
+    private final CustomUserDetailService userDetailService;
+    private final JwtAuthenticationEntryPoint unauthorizedHandler;
 
     @Autowired
-    private JwtAuthenticationEntryPoint unauthorizedHandler;
+    public SecurityConfiguration(CustomUserDetailService userDetailService, JwtAuthenticationEntryPoint unauthorizedHandler) {
+        this.userDetailService = userDetailService;
+        this.unauthorizedHandler = unauthorizedHandler;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.headers().frameOptions().disable();
+
         http
                 .cors()
                     .and()
@@ -56,7 +61,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                             "/**/*.css",
                             "/**/*.js")
                     .permitAll()
-                .antMatchers("/auth/**")
+                .antMatchers("/auth/**", "/h2-console/**")
                     .permitAll()
                 .antMatchers("/user/checkUsernameAvailability", "/user/checkEmailAvailability")
                     .permitAll()

@@ -5,6 +5,8 @@ import br.com.thiagosousa.ordersapi.controller.dto.JwtAuthenticationResponse;
 import br.com.thiagosousa.ordersapi.controller.dto.LoginRequest;
 import br.com.thiagosousa.ordersapi.controller.dto.SignUpRequest;
 import br.com.thiagosousa.ordersapi.service.AuthenticationService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,12 +18,18 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 
 @RestController
+@Api(tags = {"authentication"})
 @RequestMapping("/auth")
 public class AuthenticationController {
 
-    @Autowired
-    AuthenticationService service;
+    private final AuthenticationService service;
 
+    @Autowired
+    public AuthenticationController(AuthenticationService service) {
+        this.service = service;
+    }
+
+    @ApiOperation(value = "Authenticate an user")
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest){
         var jwt = service.authenticateUser(loginRequest);
@@ -29,6 +37,7 @@ public class AuthenticationController {
         return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
     }
 
+    @ApiOperation(value = "Register an user")
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest){
         var result = service.registerUser(signUpRequest);

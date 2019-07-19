@@ -1,16 +1,17 @@
 package br.com.thiagosousa.ordersapi.config.swagger;
 
+import com.google.common.collect.Lists;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Contact;
-import springfox.documentation.service.Tag;
+import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 
 import java.util.Collections;
+import java.util.List;
 
 @Configuration
 public class SwaggerConfiguration {
@@ -23,7 +24,10 @@ public class SwaggerConfiguration {
                 .paths(PathSelectors.ant("/**"))
                 .build()
                 .apiInfo(apiInfo())
-                .tags(new Tag("customers", "Everything about customers"));
+                .securityContexts(Lists.newArrayList(securityContext()))
+                .securitySchemes(Lists.newArrayList(apiKey()))
+                .tags(new Tag("customers", "Everything about customers"))
+                .tags(new Tag("authentication", "Sign in and sign up"));
     }
 
     private ApiInfo apiInfo() {
@@ -35,4 +39,24 @@ public class SwaggerConfiguration {
                 new Contact("Thiago Sousa", "https://github.com/ThiagoSousaSantana/", "thiago91098@gmail.com"),
                 "License of API", "API license URL", Collections.emptyList());
     }
+
+    private ApiKey apiKey() {
+        return new ApiKey("JWT", "Authorization", "header");
+    }
+
+    private SecurityContext securityContext() {
+        return SecurityContext.builder()
+                .securityReferences(defaultAuth())
+                .forPaths(PathSelectors.regex("/.*"))
+                .build();
+    }
+
+    private List<SecurityReference> defaultAuth() {
+        var authorizationScope = new AuthorizationScope("global", "accessEverything");
+        AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
+        authorizationScopes[0] = authorizationScope;
+        return Lists.newArrayList(
+                new SecurityReference("JWT", authorizationScopes));
+    }
+
 }
