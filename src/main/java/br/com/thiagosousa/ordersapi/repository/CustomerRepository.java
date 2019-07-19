@@ -16,4 +16,8 @@ public interface CustomerRepository extends CrudRepository<Customer, Long> {
 
     @Transactional(readOnly = true)
     Optional<Customer> findByEmail(String email);
+
+    Page<Customer> findAllByNameContains(Pageable pageable, String name);
+
+    Page<Customer> findAllByEmailContains(Pageable pageable, String email);
 }

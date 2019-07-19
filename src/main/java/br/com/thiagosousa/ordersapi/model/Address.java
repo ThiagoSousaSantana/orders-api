@@ -1,5 +1,6 @@
 package br.com.thiagosousa.ordersapi.model;
 
+import br.com.thiagosousa.ordersapi.model.audit.DateAudit;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
@@ -7,7 +8,7 @@ import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
 @Entity
-public class Address {
+public class Address extends DateAudit {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class ServiceExceptionHandler {
 
 
-    @ExceptionHandler(ObjectNotFoundException.class)
-    public ResponseEntity<StandardError> objectNotFound(ObjectNotFoundException exception){
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<StandardError> objectNotFound(ResourceNotFoundException exception){
 
         var error = new StandardError(HttpStatus.NOT_FOUND.value(), exception.getMessage(), System.currentTimeMillis());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
