@@ -2,15 +2,13 @@ package br.com.thiagosousa.ordersapi.controller;
 
 import br.com.thiagosousa.ordersapi.controller.dto.ApiResponse;
 import br.com.thiagosousa.ordersapi.controller.dto.SignUpRequest;
+import br.com.thiagosousa.ordersapi.controller.dto.UserResponse;
 import br.com.thiagosousa.ordersapi.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
@@ -37,6 +35,12 @@ public class UserController {
                 .buildAndExpand(result.getUsername()).toUri();
 
         return ResponseEntity.created(uri).body(new ApiResponse(true, "User registered successfully"));
+    }
+
+    @GetMapping("/{id}")
+    @ApiOperation(value = "Find a user by ID")
+    public ResponseEntity<UserResponse> findById(@PathVariable Long id){
+        return ResponseEntity.ok(service.findById(id));
     }
 }
 
