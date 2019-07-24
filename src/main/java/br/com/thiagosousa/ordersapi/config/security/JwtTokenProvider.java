@@ -1,5 +1,6 @@
 package br.com.thiagosousa.ordersapi.config.security;
 
+import br.com.thiagosousa.ordersapi.controller.dto.UserResponse;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +22,7 @@ public class JwtTokenProvider {
     private int jwtExpirationInMs;
 
     public String generateToken(Authentication authentication) {
-        var user = (UserPrincipal) authentication.getPrincipal();
+        var user = (UserResponse) authentication.getPrincipal();
 
         var now = new Date();
         var expiryDate = new Date(now.getTime() + jwtExpirationInMs);

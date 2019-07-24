@@ -27,7 +27,8 @@ public class SwaggerConfiguration {
                 .securityContexts(Lists.newArrayList(securityContext()))
                 .securitySchemes(Lists.newArrayList(apiKey()))
                 .tags(new Tag("customers", "Everything about customers"))
-                .tags(new Tag("authentication", "Sign in and sign up"));
+                .tags(new Tag("authentication", "Sign in"))
+                .tags(new Tag("users", "Everything about users"));
     }
 
     private ApiInfo apiInfo() {
