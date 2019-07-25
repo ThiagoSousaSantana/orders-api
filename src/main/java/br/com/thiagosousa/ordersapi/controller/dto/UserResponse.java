@@ -1,4 +1,4 @@
-package br.com.thiagosousa.ordersapi.config.security;
+package br.com.thiagosousa.ordersapi.controller.dto;
 
 import br.com.thiagosousa.ordersapi.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -11,13 +11,11 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class UserPrincipal implements UserDetails {
+public class UserResponse implements UserDetails {
 
     private Long id;
     private String name;
     private String username;
-
-    @JsonIgnore
     private String email;
 
     @JsonIgnore
@@ -25,7 +23,7 @@ public class UserPrincipal implements UserDetails {
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserPrincipal(Long id, String name, String username, String email, String password, Collection<? extends GrantedAuthority> authorities) {
+    private UserResponse(Long id, String name, String username, String email, String password, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.name = name;
         this.username = username;
@@ -34,12 +32,12 @@ public class UserPrincipal implements UserDetails {
         this.authorities = authorities;
     }
 
-    public static UserPrincipal create(User user){
+    public static UserResponse create(User user){
         List<GrantedAuthority> authorities = user.getRoles().stream().map(role ->
                 new SimpleGrantedAuthority(role.getName().name())
         ).collect(Collectors.toList());
 
-        return new UserPrincipal(
+        return new UserResponse(
                 user.getId(),
                 user.getName(),
                 user.getUsername(),
@@ -49,6 +47,7 @@ public class UserPrincipal implements UserDetails {
         );
     }
 
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.authorities;
@@ -64,21 +63,25 @@ public class UserPrincipal implements UserDetails {
         return this.username;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isEnabled() {
         return true;
@@ -88,7 +91,7 @@ public class UserPrincipal implements UserDetails {
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
-        UserPrincipal that = (UserPrincipal) obj;
+        UserResponse that = (UserResponse) obj;
         return Objects.equals(id, that.id);
     }
 

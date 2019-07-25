@@ -1,5 +1,6 @@
 package br.com.thiagosousa.ordersapi.config.security;
 
+import br.com.thiagosousa.ordersapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,14 +27,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 )
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private final CustomUserDetailService userDetailService;
-    private final JwtAuthenticationEntryPoint unauthorizedHandler;
-
     @Autowired
-    public SecurityConfiguration(CustomUserDetailService userDetailService, JwtAuthenticationEntryPoint unauthorizedHandler) {
-        this.userDetailService = userDetailService;
-        this.unauthorizedHandler = unauthorizedHandler;
-    }
+    private UserService userDetailService;
+    @Autowired
+    private JwtAuthenticationEntryPoint unauthorizedHandler;
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -65,7 +63,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .permitAll()
                 .antMatchers("/user/checkUsernameAvailability", "/user/checkEmailAvailability")
                     .permitAll()
-                .antMatchers(HttpMethod.GET, "/users/**")
+                .antMatchers(HttpMethod.POST, "/users/**")
                     .permitAll()
                 .anyRequest()
                     .authenticated();
