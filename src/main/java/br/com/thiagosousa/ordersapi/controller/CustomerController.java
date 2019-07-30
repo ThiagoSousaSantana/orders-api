@@ -41,7 +41,7 @@ public class CustomerController {
                 .buildAndExpand(customer.getId())
                 .toUri();
 
-        return ResponseEntity.created(uri).build();
+        return ResponseEntity.created(uri).body(customer);
     }
 
 
