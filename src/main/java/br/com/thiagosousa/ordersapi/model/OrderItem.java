@@ -24,7 +24,7 @@ public class OrderItem implements Serializable {
     public OrderItem() {
     }
 
-    public OrderItem(Product product, Double quantity, Double unitPrice, Double totalItem) {
+    public OrderItem(Product product, Double quantity, Double unitPrice, Double totalItem, Order order) {
         this.product = product;
         this.quantity = quantity;
         this.unitPrice = unitPrice;

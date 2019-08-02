@@ -54,13 +54,13 @@ public class OrdersApiApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) {
 
-		var aragorn = new Customer("Aragorn", "aragorn@email.com", "+559999999");
-		var legolas = new Customer("Legolas", "legolas@email.com", "+559999999");
-		var gimli = new Customer("Gimli", "gimli@email.com", "+559999999");
-		var gandalf = new Customer("Gandalf", "boromir@email.com", "+559999999");
-		var frodo = new Customer("Frodo", "frodo@email.com", "+559999999");
-		var bilbo = new Customer("Bilbo", "bilbo@email.com", "+559999999");
-		customerRepository.saveAll(Arrays.asList(aragorn,legolas,gandalf,gimli,frodo,bilbo));
+		var aragorn = new Customer("Aragorn", "aragorn@email.com", "+559999999", null);
+		var legolas = new Customer("Legolas", "legolas@email.com", "+559999999", null);
+		var gimli = new Customer("Gimli", "gimli@email.com", "+559999999", null);
+		var gandalf = new Customer("Gandalf", "boromir@email.com", "+559999999", null);
+		var frodo = new Customer("Frodo", "frodo@email.com", "+559999999", null);
+		var bilbo = new Customer("Bilbo", "bilbo@email.com", "+559999999", null);
+		customerRepository.saveAll(Arrays.asList(aragorn, legolas, gandalf, gimli, frodo, bilbo));
 
 		var bilboAddress = new Address("Bag End", "Bag End way", "Hobbiton", "00000-000", "Middle earth");
 		bilboAddress.setCustomer(bilbo);

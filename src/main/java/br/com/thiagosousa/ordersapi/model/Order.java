@@ -20,10 +20,17 @@ public class Order implements Serializable {
     private List<OrderItem> items = new ArrayList<>();
     @ManyToOne
     private Customer customer;
-    @ManyToOne
-    private Address deliveryAddress;
     private LocalDateTime registerDateTime;
     private Double total;
+
+    public Order() {
+    }
+
+    public Order(Customer customer, LocalDateTime registerDateTime, Double total) {
+        this.customer = customer;
+        this.registerDateTime = registerDateTime;
+        this.total = total;
+    }
 
     public Long getId() {
         return id;
@@ -65,11 +72,4 @@ public class Order implements Serializable {
         this.total = total;
     }
 
-    public Address getDeliveryAddress() {
-        return deliveryAddress;
-    }
-
-    public void setDeliveryAddress(Address deliveryAddress) {
-        this.deliveryAddress = deliveryAddress;
-    }
 }

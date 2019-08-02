@@ -21,8 +21,11 @@ public class AddressService {
         repository.saveAll(addresses);
     }
 
-    public void delete(List<Address> addresses){
-        repository.deleteAll(addresses);
+    public void delete(Address address){
+        repository.delete(address);
     }
 
+    public Address insert(Address address) {
+        return repository.save(address);
+    }
 }

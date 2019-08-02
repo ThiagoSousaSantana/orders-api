@@ -1,30 +1,37 @@
 package br.com.thiagosousa.ordersapi.service;
 
 import br.com.thiagosousa.ordersapi.controller.dto.OrderItemForm;
+import br.com.thiagosousa.ordersapi.model.Order;
 import br.com.thiagosousa.ordersapi.model.OrderItem;
 import br.com.thiagosousa.ordersapi.repository.OrderItemRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class OrderItemService {
 
-    private OrderService orderService;
     private OrderItemRepository repository;
+    private ProductService productService;
 
-    @Autowired
-    public OrderItemService(OrderService orderService, OrderItemRepository repository) {
-        this.orderService = orderService;
+    public OrderItemService(OrderItemRepository repository, ProductService productService) {
         this.repository = repository;
+        this.productService = productService;
     }
 
-    public List<OrderItem> insertAll(List<OrderItemForm> formList, Long orderId){
-        var order = orderService.findById(orderId);
-        var orderList = formList.stream().map(OrderItemForm::toOrderItem).collect(Collectors.toList());
-        orderList.forEach((item) -> item.setOrder(order));
+    public List<OrderItem> insertAll(List<OrderItemForm> formList, Order order){
+        List<OrderItem> orderList = new ArrayList<>();
+
+        for (OrderItemForm itemForm : formList) {
+            var product = productService.findById(itemForm.getProductId());
+
+            var totalItem = itemForm.getQuantity() * itemForm.getUnitPrice();
+
+            var orderItem = new OrderItem(product, itemForm.getQuantity(), itemForm.getUnitPrice(), totalItem, order);
+            orderList.add(orderItem);
+        }
+
         return repository.saveAll(orderList);
     }
 

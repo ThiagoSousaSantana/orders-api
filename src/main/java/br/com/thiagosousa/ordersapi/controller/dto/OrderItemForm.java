@@ -1,39 +1,34 @@
 package br.com.thiagosousa.ordersapi.controller.dto;
 
-import br.com.thiagosousa.ordersapi.model.OrderItem;
-import br.com.thiagosousa.ordersapi.model.Product;
-
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 public class OrderItemForm {
 
     @NotNull
-    private Product product;
-    @NotBlank
+    private Long productId;
+    @NotBlank @Min(value = 1)
     private Double quantity;
-    @NotBlank
-    private Double unitPrice;
 
-    public OrderItem toOrderItem(){
-        return new OrderItem(product, quantity, unitPrice, quantity * unitPrice);
-    }
+    @NotBlank @Min(value = 1)
+    private Double unitPrice;
 
     public OrderItemForm() {
     }
 
-    public OrderItemForm(@NotNull Product product, @NotBlank Double quantity, @NotBlank Double unitPrice) {
-        this.product = product;
+    public OrderItemForm(@NotNull Long productId, @NotBlank Double quantity, @NotBlank Double unitPrice) {
+        this.productId = productId;
         this.quantity = quantity;
         this.unitPrice = unitPrice;
     }
 
-    public Product getProduct() {
-        return product;
+    public Long getProductId() {
+        return productId;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
     public Double getQuantity() {

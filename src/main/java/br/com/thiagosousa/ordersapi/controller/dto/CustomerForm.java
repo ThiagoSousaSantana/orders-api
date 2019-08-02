@@ -1,12 +1,11 @@
 package br.com.thiagosousa.ordersapi.controller.dto;
 
-import br.com.thiagosousa.ordersapi.model.Customer;
 import br.com.thiagosousa.ordersapi.model.Address;
+import br.com.thiagosousa.ordersapi.model.Customer;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import java.util.ArrayList;
-import java.util.List;
+import javax.validation.constraints.NotNull;
 
 public class CustomerForm {
 
@@ -19,12 +18,11 @@ public class CustomerForm {
 
     private String phone;
 
-    private List<Address> address = new ArrayList<>();
+    @NotNull
+    private Address address;
 
     public Customer toCustomer(){
-        var customer = new Customer(this.name, this.email, this.phone);
-        customer.setAddress(address);
-        return customer;
+        return new Customer(this.name, this.email, this.phone, this.address);
     }
 
     public String getName() {
@@ -51,11 +49,11 @@ public class CustomerForm {
         this.phone = phone;
     }
 
-    public List<Address> getAddress() {
+    public Address getAddress() {
         return address;
     }
 
-    public void setAddress(List<Address> address) {
+    public void setAddress(Address address) {
         this.address = address;
     }
 }
