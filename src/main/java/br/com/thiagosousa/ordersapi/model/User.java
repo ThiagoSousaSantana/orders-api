@@ -13,7 +13,10 @@ import java.util.Set;
 @Entity
 public class User extends DateAudit {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank

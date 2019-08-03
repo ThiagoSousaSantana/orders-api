@@ -43,9 +43,7 @@ public class CustomerService {
 
         var customer = repository.save(form.toCustomer());
 
-        var addresses = form.getAddress();
-        addresses.forEach(address -> address.setId(null));
-        addressService.insertAll(addresses);
+        addressService.insert(form.getAddress());
 
         return customer;
     }
@@ -54,7 +52,7 @@ public class CustomerService {
         var customer = findBy(id);
         updateFields(form, customer);
 
-        addressService.insertAll(customer.getAddress());
+        addressService.insert(customer.getAddress());
         return repository.save(customer);
     }
 
@@ -62,12 +60,8 @@ public class CustomerService {
         customer.setName(form.getName());
         customer.setEmail(form.getEmail());
         customer.setPhone(form.getPhone());
+        customer.setAddress(form.getAddress());
 
-        var newAddresses = form.getAddress();
-        if (!newAddresses.equals(customer.getAddress())) {
-            newAddresses.forEach( address -> address.setCustomer(customer));
-            customer.setAddress(newAddresses);
-        }
     }
 
     public Page<CustomerDto> findByName(Pageable pageable, String name) {

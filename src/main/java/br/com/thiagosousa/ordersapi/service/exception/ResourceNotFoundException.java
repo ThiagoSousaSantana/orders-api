@@ -2,6 +2,7 @@ package br.com.thiagosousa.ordersapi.service.exception;
 
 public class ResourceNotFoundException extends RuntimeException {
 
+    private static final long serialVersionUID = 1L;
     private String resourceName;
     private String fieldName;
     private Object fieldValue;

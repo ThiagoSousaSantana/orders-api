@@ -1,16 +1,15 @@
 package br.com.thiagosousa.ordersapi.model;
 
 import br.com.thiagosousa.ordersapi.model.audit.DateAudit;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 public class Customer extends DateAudit {
-
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private static final long serialVersionUID = 1L;
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String phone;
@@ -18,11 +17,10 @@ public class Customer extends DateAudit {
     @Column(unique = true)
     private String email;
 
-    @JsonManagedReference
-    @OneToMany(mappedBy = "customer")
-    private List<Address> address = new ArrayList<>();
+    @OneToOne
+    private Address address;
 
-    public Customer(String name, String email, String phone) {
+    public Customer(String name, String email, String phone, Address address) {
         this.name = name;
         this.email = email;
         this.phone = phone;
@@ -63,11 +61,11 @@ public class Customer extends DateAudit {
         this.phone = phone;
     }
 
-    public List<Address> getAddress() {
+    public Address getAddress() {
         return address;
     }
 
-    public void setAddress(List<Address> address) {
+    public void setAddress(Address address) {
         this.address = address;
     }
 }

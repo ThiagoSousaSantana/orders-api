@@ -1,7 +1,6 @@
 package br.com.thiagosousa.ordersapi.controller;
 
 import br.com.thiagosousa.ordersapi.controller.dto.ProductRequest;
-import br.com.thiagosousa.ordersapi.model.Customer;
 import br.com.thiagosousa.ordersapi.model.Product;
 import br.com.thiagosousa.ordersapi.service.ProductService;
 import io.swagger.annotations.Api;
@@ -32,7 +31,7 @@ public class ProductController {
     @PostMapping
     @ApiOperation(value = "Insert a new product")
     @ApiResponses(value = {@ApiResponse(code = 400, message = "Bad request")})
-    public ResponseEntity<Customer> insert(@RequestBody @Valid ProductRequest productRequest){
+    public ResponseEntity<Product> insert(@RequestBody @Valid ProductRequest productRequest){
         var product = service.insert(productRequest);
         var uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -40,7 +39,7 @@ public class ProductController {
                 .buildAndExpand(product.getId())
                 .toUri();
 
-        return ResponseEntity.created(uri).build();
+        return ResponseEntity.created(uri).body(product);
     }
 
     @GetMapping

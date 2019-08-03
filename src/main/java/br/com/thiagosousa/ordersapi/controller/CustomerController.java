@@ -44,7 +44,6 @@ public class CustomerController {
         return ResponseEntity.created(uri).body(customer);
     }
 
-
     @GetMapping
     @ApiOperation(value = "List all customers")
     public ResponseEntity<Page<CustomerDto>> listAll(Pageable pageable, String name, String email){

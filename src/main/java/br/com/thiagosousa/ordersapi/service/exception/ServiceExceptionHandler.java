@@ -1,5 +1,6 @@
 package br.com.thiagosousa.ordersapi.service.exception;
 
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -35,5 +36,9 @@ public class ServiceExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 
-
+    @ExceptionHandler(InvalidDataAccessApiUsageException.class)
+    public ResponseEntity<StandardError> dataIntegrity(InvalidDataAccessApiUsageException exception){
+        var error = new StandardError(HttpStatus.BAD_REQUEST.value(), "Object cannot be deleted", System.currentTimeMillis());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
 }
