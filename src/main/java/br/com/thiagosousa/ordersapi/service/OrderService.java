@@ -74,4 +74,10 @@ public class OrderService {
             total += item.getQuantity() * item.getUnitPrice();
         return total;
     }
+
+    public void deleteById(Long id) {
+        var order = findById(id);
+        orderItemService.deleteByOrderId(id);
+        repository.deleteById(id);
+    }
 }

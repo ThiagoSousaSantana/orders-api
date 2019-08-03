@@ -26,11 +26,13 @@ public class OrderController {
     }
 
     @GetMapping(value = "/{id}")
+    @ApiOperation(value = "Find an order by ID")
     public ResponseEntity<Order> findById(@PathVariable Long id){
         return ResponseEntity.ok(service.findById(id));
     }
 
     @GetMapping
+    @ApiOperation(value = "List all orders")
     public ResponseEntity<Page<OrderResponse>> listAllBy(String customerName, Pageable pageable){
         if (customerName != null) return ResponseEntity.ok(service.findByCustomerName(customerName, pageable));
         return ResponseEntity.ok(service.findAll(pageable));
@@ -50,8 +52,16 @@ public class OrderController {
     }
 
     @PutMapping(value = "{id}")
+    @ApiOperation(value = "Update an existing order")
     public ResponseEntity<Order> update(@RequestBody OrderForm form, @PathVariable Long id){
         var order = service.update(form, id);
         return ResponseEntity.ok(order);
+    }
+
+    @DeleteMapping(value = "{id}")
+    @ApiOperation(value = "Deletes a order")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        service.deleteById(id);
+        return ResponseEntity.ok().build();
     }
 }
