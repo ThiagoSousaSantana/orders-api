@@ -8,10 +8,10 @@ public class OrderItemForm {
 
     @NotNull
     private Long productId;
-    @NotBlank @Min(value = 1)
+    @Min(value = 1)
     private Double quantity;
 
-    @NotBlank @Min(value = 1)
+    @Min(value = 1)
     private Double unitPrice;
 
     public OrderItemForm() {

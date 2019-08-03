@@ -29,7 +29,8 @@ public class SwaggerConfiguration {
                 .tags(new Tag("customers", "Everything about customers"))
                 .tags(new Tag("products", "Everything about products"))
                 .tags(new Tag("authentication", "Sign in"))
-                .tags(new Tag("users", "Everything about users"));
+                .tags(new Tag("users", "Everything about users"))
+                .tags(new Tag("orders", "Everything about orders"));
     }
 
     private ApiInfo apiInfo() {

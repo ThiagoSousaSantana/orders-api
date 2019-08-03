@@ -29,6 +29,7 @@ public class OrderItem implements Serializable {
         this.quantity = quantity;
         this.unitPrice = unitPrice;
         this.totalItem = totalItem;
+        this.order = order;
     }
 
     public Long getId() {

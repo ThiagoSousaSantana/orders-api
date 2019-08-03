@@ -2,9 +2,12 @@ package br.com.thiagosousa.ordersapi.service;
 
 import br.com.thiagosousa.ordersapi.controller.dto.OrderForm;
 import br.com.thiagosousa.ordersapi.controller.dto.OrderItemForm;
+import br.com.thiagosousa.ordersapi.controller.dto.OrderResponse;
 import br.com.thiagosousa.ordersapi.model.Order;
 import br.com.thiagosousa.ordersapi.repository.OrderRepository;
 import br.com.thiagosousa.ordersapi.service.exception.ResourceNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -40,5 +43,13 @@ public class OrderService {
 
     public Order findById(Long id) {
         return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Order", "ID", id));
+    }
+
+    public Page<OrderResponse> findByCustomerName(String customerName, Pageable pageable) {
+        return repository.findByCustomerNameContains(customerName, pageable).map(OrderResponse::new);
+    }
+
+    public Page<OrderResponse> findAll(Pageable pageable) {
+        return repository.findAll(pageable).map(OrderResponse::new);
     }
 }

@@ -1,12 +1,13 @@
 package br.com.thiagosousa.ordersapi.controller.dto;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
 public class OrderForm {
 
-    @NotNull
+    @NotNull @Valid
     private List<OrderItemForm> items = new ArrayList<>();
     @NotNull
     private Long customerId;
