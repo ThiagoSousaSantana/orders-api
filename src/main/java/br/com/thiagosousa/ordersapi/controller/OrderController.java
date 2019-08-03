@@ -25,6 +25,17 @@ public class OrderController {
         this.service = service;
     }
 
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Order> findById(@PathVariable Long id){
+        return ResponseEntity.ok(service.findById(id));
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<OrderResponse>> listAllBy(String customerName, Pageable pageable){
+        if (customerName != null) return ResponseEntity.ok(service.findByCustomerName(customerName, pageable));
+        return ResponseEntity.ok(service.findAll(pageable));
+    }
+
     @PostMapping
     @ApiOperation(value = "Insert a new order")
     public ResponseEntity<Order> insert(@RequestBody @Valid OrderForm form){
@@ -35,18 +46,12 @@ public class OrderController {
                 .path("/{id}")
                 .buildAndExpand(order.getId())
                 .toUri();
-
         return ResponseEntity.created(uri).body(order);
     }
 
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<Order> findById(@PathVariable Long id){
-        return ResponseEntity.ok(service.findById(id));
-    }
-
-    @GetMapping
-    public ResponseEntity<Page<OrderResponse>> listAllBy(String customerName, Pageable pageable){
-        if (customerName != null) return ResponseEntity.ok(service.findByCustomerName(customerName, pageable));
-        return ResponseEntity.ok(service.findAll(pageable));
+    @PutMapping(value = "{id}")
+    public ResponseEntity<Order> update(@RequestBody OrderForm form, @PathVariable Long id){
+        var order = service.update(form, id);
+        return ResponseEntity.ok(order);
     }
 }

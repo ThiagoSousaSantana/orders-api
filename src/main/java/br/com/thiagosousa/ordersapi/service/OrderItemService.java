@@ -20,22 +20,26 @@ public class OrderItemService {
         this.productService = productService;
     }
 
-    public List<OrderItem> insertAll(List<OrderItemForm> formList, Order order){
+    List<OrderItem> insertAll(List<OrderItemForm> formList, Order order){
         List<OrderItem> orderList = new ArrayList<>();
 
-        for (OrderItemForm itemForm : formList) {
-            var product = productService.findById(itemForm.getProductId());
-
-            var totalItem = itemForm.getQuantity() * itemForm.getUnitPrice();
-
-            var orderItem = new OrderItem(product, itemForm.getQuantity(), itemForm.getUnitPrice(), totalItem, order);
-            orderList.add(orderItem);
-        }
+        formList.forEach(itemForm -> orderList.add(update(order, itemForm)));
 
         return repository.saveAll(orderList);
     }
 
+    private OrderItem update(Order order, OrderItemForm itemForm) {
+        var product = productService.findById(itemForm.getProductId());
+        var totalItem = itemForm.getQuantity() * itemForm.getUnitPrice();
+
+        return new OrderItem(product, itemForm.getQuantity(), itemForm.getUnitPrice(), totalItem, order);
+    }
+
     public void delete(Long id){
         repository.deleteById(id);
+    }
+
+    void deleteByOrderId(Long orderId) {
+        repository.deleteAllByOrderId(orderId);
     }
 }

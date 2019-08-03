@@ -28,9 +28,7 @@ public class OrderService {
     public Order insert(OrderForm orderForm){
         var customer = customerService.findBy(orderForm.getCustomerId());
 
-        double total = 0;
-        for (OrderItemForm item : orderForm.getItems())
-            total += item.getQuantity() * item.getUnitPrice();
+        double total = getTotalOrder(orderForm);
 
         var order = new Order(customer, LocalDateTime.now(), total);
         order = repository.save(order);
@@ -51,5 +49,29 @@ public class OrderService {
 
     public Page<OrderResponse> findAll(Pageable pageable) {
         return repository.findAll(pageable).map(OrderResponse::new);
+    }
+
+    public Order update(OrderForm form, Long id) {
+        var order = findById(id);
+        updateData(form, order);
+        return repository.save(order);
+    }
+
+    private void updateData(OrderForm form, Order order) {
+        var customer = customerService.findBy(form.getCustomerId());
+        order.setCustomer(customer);
+
+        order.setTotal(getTotalOrder(form));
+
+        orderItemService.deleteByOrderId(order.getId());
+        var items = orderItemService.insertAll(form.getItems(), order);
+        order.setItems(items);
+    }
+
+    private double getTotalOrder(OrderForm orderForm) {
+        double total = 0;
+        for (OrderItemForm item : orderForm.getItems())
+            total += item.getQuantity() * item.getUnitPrice();
+        return total;
     }
 }
