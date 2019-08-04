@@ -33,5 +33,5 @@ deploy:
   app: ordersapi
   on:
     tags: true
-    repo: "$IMAGE_NAME"
+    repo: ordersapi
   
