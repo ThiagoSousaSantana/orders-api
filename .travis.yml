@@ -13,7 +13,7 @@ before_install:
 
 # Test & Build SpringBoot app
 script:
-  - gradle build
+  - ./gradlew build
 
 
 # Create Docker image for our app and push it to Dockerhub repository
