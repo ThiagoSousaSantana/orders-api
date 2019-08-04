@@ -3,8 +3,10 @@ package br.com.thiagosousa.ordersapi.controller.dto;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
-public class SignUpRequest {
+public class SignUpRequest implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @NotBlank
     @Size(min = 4, max = 40)

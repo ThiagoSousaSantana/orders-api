@@ -3,8 +3,10 @@ package br.com.thiagosousa.ordersapi.controller.dto;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
-public class OrderItemForm {
+public class OrderItemForm implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @NotNull
     private Long productId;

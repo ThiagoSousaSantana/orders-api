@@ -1,14 +1,14 @@
 package br.com.thiagosousa.ordersapi.model;
 
-import br.com.thiagosousa.ordersapi.model.audit.DateAudit;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-public class Address extends DateAudit {
+public class Address implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @Id

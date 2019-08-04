@@ -1,6 +1,9 @@
 package br.com.thiagosousa.ordersapi.controller.dto;
 
-public class ApiResponse {
+import java.io.Serializable;
+
+public class ApiResponse implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private Boolean success;
     private String message;

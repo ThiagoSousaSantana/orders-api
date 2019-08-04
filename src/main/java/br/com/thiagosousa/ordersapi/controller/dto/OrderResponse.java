@@ -2,9 +2,11 @@ package br.com.thiagosousa.ordersapi.controller.dto;
 
 import br.com.thiagosousa.ordersapi.model.Order;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class OrderResponse {
+public class OrderResponse implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private Long id;
     private String customerName;

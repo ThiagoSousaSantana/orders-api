@@ -2,7 +2,10 @@ package br.com.thiagosousa.ordersapi.controller.dto;
 
 import br.com.thiagosousa.ordersapi.model.Customer;
 
-public class CustomerDto {
+import java.io.Serializable;
+
+public class CustomerDto implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private Long id;
     private String name;

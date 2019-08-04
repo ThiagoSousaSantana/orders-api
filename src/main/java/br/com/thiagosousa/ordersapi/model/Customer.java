@@ -1,11 +1,10 @@
 package br.com.thiagosousa.ordersapi.model;
 
-import br.com.thiagosousa.ordersapi.model.audit.DateAudit;
-
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class Customer extends DateAudit {
+public class Customer implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @Id

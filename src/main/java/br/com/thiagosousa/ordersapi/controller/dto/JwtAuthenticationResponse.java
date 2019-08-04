@@ -1,6 +1,9 @@
 package br.com.thiagosousa.ordersapi.controller.dto;
 
-public class JwtAuthenticationResponse {
+import java.io.Serializable;
+
+public class JwtAuthenticationResponse implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private String accessToken;
     private String tokenType = "Bearer";

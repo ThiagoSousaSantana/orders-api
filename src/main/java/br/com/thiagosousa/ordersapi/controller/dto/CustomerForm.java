@@ -6,8 +6,10 @@ import br.com.thiagosousa.ordersapi.model.Customer;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
-public class CustomerForm {
+public class CustomerForm implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @NotBlank
     private String name;
