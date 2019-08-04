@@ -5,8 +5,10 @@ import br.com.thiagosousa.ordersapi.model.Product;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
-public class ProductRequest {
+public class ProductRequest implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @NotBlank
     private String name;

@@ -11,8 +11,10 @@ import java.util.List;
 @Entity
 @Table(name = "order_table")
 public class Order implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @JsonManagedReference

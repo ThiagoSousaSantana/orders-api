@@ -76,7 +76,7 @@ public class OrderService {
     }
 
     public void deleteById(Long id) {
-        var order = findById(id);
+        findById(id);
         orderItemService.deleteByOrderId(id);
         repository.deleteById(id);
     }

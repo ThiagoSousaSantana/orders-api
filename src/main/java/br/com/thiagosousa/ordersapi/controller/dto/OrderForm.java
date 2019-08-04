@@ -2,10 +2,12 @@ package br.com.thiagosousa.ordersapi.controller.dto;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderForm {
+public class OrderForm implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @NotNull @Valid
     private List<OrderItemForm> items = new ArrayList<>();
