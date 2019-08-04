@@ -31,7 +31,4 @@ deploy:
   api-key:
     secure: "$HEROKU_API_KEY"
   app: ordersapi
-  on:
-    tags: true
-    repo: ordersapi
   
