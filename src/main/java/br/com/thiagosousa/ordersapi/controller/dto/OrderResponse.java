@@ -1,10 +1,16 @@
 package br.com.thiagosousa.ordersapi.controller.dto;
 
 import br.com.thiagosousa.ordersapi.model.Order;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class OrderResponse implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -13,9 +19,6 @@ public class OrderResponse implements Serializable {
     private Double total;
     private LocalDateTime registerDate;
 
-    public OrderResponse() {
-    }
-
     public OrderResponse(Order order) {
         this.id = order.getId();
         this.customerName = order.getCustomer().getName();
@@ -23,35 +26,4 @@ public class OrderResponse implements Serializable {
         this.registerDate = order.getRegisterDateTime();
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
-
-    public Double getTotal() {
-        return total;
-    }
-
-    public void setTotal(Double total) {
-        this.total = total;
-    }
-
-    public LocalDateTime getRegisterDate() {
-        return registerDate;
-    }
-
-    public void setRegisterDate(LocalDateTime registerDate) {
-        this.registerDate = registerDate;
-    }
 }

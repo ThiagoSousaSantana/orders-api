@@ -1,9 +1,15 @@
 package br.com.thiagosousa.ordersapi.controller.dto;
 
 import br.com.thiagosousa.ordersapi.model.Customer;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class CustomerDto implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -17,21 +23,5 @@ public class CustomerDto implements Serializable {
         this.name = customer.getName();
         this.email = customer.getEmail();
         this.phone = customer.getPhone();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPhone() {
-        return phone;
     }
 }

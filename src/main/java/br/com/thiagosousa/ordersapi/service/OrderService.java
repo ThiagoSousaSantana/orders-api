@@ -30,7 +30,7 @@ public class OrderService {
 
         double total = getTotalOrder(orderForm);
 
-        var order = new Order(customer, LocalDateTime.now(), total);
+        var order = new Order(null, null, customer, LocalDateTime.now(), total);
         order = repository.save(order);
 
         var items = orderItemService.insertAll(orderForm.getItems(), order);

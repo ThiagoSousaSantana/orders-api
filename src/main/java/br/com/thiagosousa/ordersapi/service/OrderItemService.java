@@ -12,8 +12,8 @@ import java.util.List;
 @Service
 public class OrderItemService {
 
-    private OrderItemRepository repository;
-    private ProductService productService;
+    private final OrderItemRepository repository;
+    private final ProductService productService;
 
     public OrderItemService(OrderItemRepository repository, ProductService productService) {
         this.repository = repository;
@@ -29,10 +29,13 @@ public class OrderItemService {
     }
 
     private OrderItem update(Order order, OrderItemForm itemForm) {
-        var product = productService.findById(itemForm.getProductId());
-        var totalItem = itemForm.getQuantity() * itemForm.getUnitPrice();
 
-        return new OrderItem(product, itemForm.getQuantity(), itemForm.getUnitPrice(), totalItem, order);
+        return new OrderItem(null,
+                order,
+                productService.findById(itemForm.getProductId()),
+                itemForm.getQuantity(),
+                itemForm.getUnitPrice(),
+                itemForm.getQuantity() * itemForm.getUnitPrice());
     }
 
     public void delete(Long id){
