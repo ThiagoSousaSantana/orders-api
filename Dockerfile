@@ -1,4 +1,4 @@
-FROM openjdk:12
+FROM openjdk:14
 
 ENV APP_ROOT /app
 
